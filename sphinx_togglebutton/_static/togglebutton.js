@@ -123,6 +123,25 @@ var toggleHidden = (button) => {
   }
 };
 
+// Function to synchronize the data-toggle-hint with the current state
+var syncToggleHint = (button) => {
+  const target = button.dataset["target"];
+  const itemToToggle = document.getElementById(target);
+  
+  if (itemToToggle && itemToToggle.classList.contains("toggle-hidden")) {
+    button.dataset.toggleHint = toggleHintShow;
+    button.setAttribute("aria-expanded", false);
+  } else if (itemToToggle) {
+    button.dataset.toggleHint = toggleHintHide;
+    button.setAttribute("aria-expanded", true);
+  }
+};
+
+// Function to sync all toggle buttons - can be called by external extensions
+var syncAllToggleHints = () => {
+  document.querySelectorAll('.toggle-button').forEach(syncToggleHint);
+};
+
 var toggleClickHandler = (click) => {
   // Be cause the admonition title is clickable and extends to the whole admonition
   // We only look for a click event on this title to trigger the toggle.
@@ -169,6 +188,33 @@ const sphinxToggleRunWhenDOMLoaded = (cb) => {
 };
 sphinxToggleRunWhenDOMLoaded(addToggleToSelector);
 sphinxToggleRunWhenDOMLoaded(initToggleItems);
+
+// Set up MutationObserver to watch for external changes to toggle states
+sphinxToggleRunWhenDOMLoaded(() => {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        const target = mutation.target;
+        // Check if this is a toggle item that had its class changed
+        if (target.classList.contains('toggle')) {
+          // Find the associated toggle button and sync its hint
+          const button = target.querySelector('.toggle-button');
+          if (button) {
+            syncToggleHint(button);
+          }
+        }
+      }
+    });
+  });
+
+  // Start observing class changes on all toggle elements
+  document.querySelectorAll('.toggle').forEach((toggleElement) => {
+    observer.observe(toggleElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  });
+});
 
 /** Toggle details blocks to be open when printing */
 if (toggleOpenOnPrint == "true") {
