@@ -3,6 +3,10 @@ import os
 from docutils.parsers.rst import Directive, directives
 from docutils import nodes
 
+from sphinx.locale import get_translation
+MESSAGE_CATALOG_NAME = "togglebutton"
+translate = get_translation(MESSAGE_CATALOG_NAME)
+
 __version__ = "0.3.2"
 
 
@@ -50,6 +54,12 @@ class Toggle(Directive):
 
 # We connect this function to the step after the builder is initialized
 def setup(app):
+    # add translations
+    package_dir = os.path.abspath(os.path.dirname(__file__))
+    locale_dir = os.path.join(package_dir, "translations", "locales")
+    app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
+
+
     # Add our static path
     app.connect("builder-inited", st_static_path)
 
@@ -59,8 +69,8 @@ def setup(app):
     # Add the string we'll use to select items in the JS
     # Tell Sphinx about this configuration variable
     app.add_config_value("togglebutton_selector", ".toggle, .admonition.dropdown", "html")
-    app.add_config_value("togglebutton_hint", "Click to show", "html")
-    app.add_config_value("togglebutton_hint_hide", "Click to hide", "html")
+    app.add_config_value("togglebutton_hint", f"{translate('Click to show')}", "html")
+    app.add_config_value("togglebutton_hint_hide", f"{translate('Click to hide')}", "html")
     app.add_config_value("togglebutton_open_on_print", True, "html")
 
     # Run the function after the builder is initialized
