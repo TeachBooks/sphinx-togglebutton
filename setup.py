@@ -24,7 +24,15 @@ setup(
     license="MIT License",
     packages=find_packages(),
     package_data={
-        "sphinx_togglebutton": ["_static/togglebutton.css", "_static/togglebutton.js", "_static/togglebutton-chevron.svg"]
+        "sphinx_togglebutton": [
+            "_static/togglebutton.css", 
+            "_static/togglebutton.js", 
+            "_static/togglebutton-chevron.svg",
+            "translations/README.md",
+            "translations/_convert.py",
+            "translations/jsons/*.json",
+            "translations/locales/**/*"
+        ]
     },
     install_requires=["setuptools", "wheel", "sphinx", "docutils"],
     extras_require={"sphinx": ["matplotlib", "numpy", "myst_nb", "sphinx_book_theme", "sphinx_design", "sphinx_examples"]},
