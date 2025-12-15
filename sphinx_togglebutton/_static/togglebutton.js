@@ -17,8 +17,13 @@ var initToggleItems = () => {
   itemsToToggle.forEach((item, index) => {
     if (item.classList.contains("admonition")) {
       // If it's an admonition block, then we'll add a button inside
-      // Generate unique IDs for this item
-      var toggleID = `toggle-${index}`;
+      // Generate unique IDs for this item,
+      // IF AND ONLY IF THE ITEM DOESN'T ALREADY HAVE AN ID
+      if (!item.id) {
+        var toggleID = `toggle-${index}`;
+      } else {
+        var toggleID = item.id;
+      }
       var buttonID = `button-${toggleID}`;
 
       item.setAttribute("id", toggleID);
