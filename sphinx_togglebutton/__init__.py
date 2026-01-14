@@ -13,14 +13,18 @@ __version__ = "0.3.2"
 
 
 def st_static_path(app):
-    static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "_static"))
+    static_path = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "_static")
+    )
     app.config.html_static_path.append(static_path)
 
 
 def initialize_js_assets(app, config):
     # Update the global context
 
-    app.add_js_file(None, body=f"let toggleHintShow = '{config.togglebutton_hint}';")
+    app.add_js_file(
+        None, body=f"let toggleHintShow = '{config.togglebutton_hint}';"
+    )
     app.add_js_file(
         None, body=f"let toggleHintHide = '{config.togglebutton_hint_hide}';"
     )
@@ -83,7 +87,9 @@ def setup(app):
     app.add_config_value(
         "togglebutton_selector", ".toggle, .admonition.dropdown", "html"
     )
-    app.add_config_value("togglebutton_hint", f"{translate('Click to show')}", "html")
+    app.add_config_value(
+        "togglebutton_hint", f"{translate('Click to show')}", "html"
+    )
     app.add_config_value(
         "togglebutton_hint_hide", f"{translate('Click to hide')}", "html"
     )
