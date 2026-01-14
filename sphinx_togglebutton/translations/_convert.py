@@ -1,7 +1,7 @@
 import json
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 MESSAGE_CATALOG_NAME = "togglebutton"
 

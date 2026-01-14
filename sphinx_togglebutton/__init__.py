@@ -1,9 +1,9 @@
 """A small sphinx extension to add "toggle" buttons to items."""
 
 import os
-from docutils.parsers.rst import Directive, directives
-from docutils import nodes
 
+from docutils import nodes
+from docutils.parsers.rst import Directive, directives
 from sphinx.locale import get_translation
 
 MESSAGE_CATALOG_NAME = "togglebutton"
