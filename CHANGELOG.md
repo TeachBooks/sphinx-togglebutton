@@ -5,7 +5,7 @@
 ### Added
 
 - Support for more languages in toggle button text (see README for full list) [#66](https://github.com/executablebooks/sphinx-togglebutton/pull/66).
-- Added new functions (syncToggleHint, syncAllToggleHints) to dynamically update toggle button hints based on the current state  [#66](https://github.com/executablebooks/sphinx-togglebutton/pull/66).
+- Added new functions (syncToggleHint, syncAllToggleHints) to dynamically update toggle button hints based on the current state  [#66](https://github.com/executablebooks/sphinx-togglebutton/pull/66). This allows developers to change the open or closed state of an element and have the button hint text update accordingly automatically.
 
 ### Fixed
 
